@@ -47,7 +47,7 @@ const DEPLOYMENT_FEE_FACTOR: u64 = 1000;
 #[derive(Clone)]
 pub struct Consensus<N: Network, C: ConsensusStorage<N>> {
     /// The ledger.
-    ledger: Ledger<N, C>,
+    pub ledger: Ledger<N, C>,
     /// The coinbase puzzle.
     coinbase_puzzle: CoinbasePuzzle<N>,
     /// The memory pool.
