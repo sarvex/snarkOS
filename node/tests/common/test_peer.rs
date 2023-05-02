@@ -198,7 +198,11 @@ impl Handshake for TestPeer {
         let public_key = kp.public();
         let signature = kp.sign(public_key.as_bytes());
 
-        let message = Message::ConsensusId(Box::new(ConsensusId { public_key: public_key.clone(), signature }));
+        let message = Message::ConsensusId(Box::new(ConsensusId {
+            public_key: public_key.clone(),
+            signature,
+            last_executed_sub_dag_index: 0,
+        }));
         framed.send(message).await?;
 
         let Message::ConsensusId(consensus_id) = framed.try_next().await.unwrap().unwrap() else {

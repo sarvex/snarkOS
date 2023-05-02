@@ -56,6 +56,10 @@ version = "1"
 git = "https://github.com/eqlabs/bullshark-bft/"
 package = "narwhal-config"
 
+[dependencies.narwhal-executor]
+git = "https://github.com/eqlabs/bullshark-bft/"
+package = "narwhal-executor"
+
 [dependencies.num_cpus]
 version = "1"
 

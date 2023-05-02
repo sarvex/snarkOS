@@ -24,6 +24,7 @@ use fastcrypto::{
 pub struct ConsensusId {
     pub public_key: BLS12381PublicKey,
     pub signature: BLS12381Signature,
+    pub last_executed_sub_dag_index: u64,
 }
 
 impl MessageTrait for Box<ConsensusId> {
@@ -34,13 +35,14 @@ impl MessageTrait for Box<ConsensusId> {
     fn serialize<W: Write>(&self, writer: &mut W) -> Result<()> {
         writer.write_all(self.public_key.as_bytes())?;
         writer.write_all(self.signature.as_bytes())?;
+        writer.write_all(&self.last_executed_sub_dag_index.to_le_bytes())?;
 
         Ok(())
     }
 
     fn deserialize(bytes: BytesMut) -> Result<Self> {
-        let (public_key, signature) = bincode::deserialize_from(&mut bytes.reader())?;
+        let (public_key, signature, last_executed_sub_dag_index) = bincode::deserialize_from(&mut bytes.reader())?;
 
-        Ok(Box::new(ConsensusId { public_key, signature }))
+        Ok(Box::new(ConsensusId { public_key, signature, last_executed_sub_dag_index }))
     }
 }
