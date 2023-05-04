@@ -56,7 +56,7 @@ pub fn start_logger(default_level: LevelFilter) {
 // Creates instances of BFT consensus based on the given committee setup and with
 // a common initial state.
 pub fn generate_consensus_instances(
-    mut committee_setup: CommitteeSetup,
+    committee_setup: CommitteeSetup,
     state: TestBftExecutionState,
 ) -> Vec<InertConsensusInstance<TestBftExecutionState, TestTransactionValidator>> {
     // Generate the Parameters.
@@ -85,7 +85,7 @@ pub fn generate_consensus_instances(
 
     // Create the consensus objects.
     let mut consensus_objects = Vec::with_capacity(committee_setup.primaries.len());
-    for (primary_id, primary) in committee_setup.primaries.drain(..).enumerate() {
+    for (primary_id, primary) in committee_setup.primaries.into_values().enumerate() {
         // Prepare the temporary folder for storage.
         let base_path = state.storage_dir.path();
 
